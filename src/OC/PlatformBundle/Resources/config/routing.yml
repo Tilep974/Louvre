@@ -1,0 +1,4 @@
+oc_platform_home:
+    path:     /
+    defaults: 
+        _controller: OCPlatformBundle:Advert:index
