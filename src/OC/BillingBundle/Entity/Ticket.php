@@ -1,16 +1,16 @@
 <?php
 
-namespace OC\PlatformBundle\Entity
+namespace OC\BillingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use OC\platformbundle\entity\TicketOrder;
-use Symfony\Component\Validator\Constraints as Assert
+use OC\BillingBundle\entity\TicketOrder;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ticket
  *
  * @ORM\Table(name="ticket")
- * @ORM\Entity(repositoryClass="OC\PlatformBundle\Repository\TicketRepository")
+ * @ORM\Entity(repositoryClass="OC\BillingBundle\Repository\TicketRepository")
  */
 class Ticket
 {
@@ -101,10 +101,10 @@ class Ticket
 	 * 	message="The price of the tickets must be equal to or over 0."
 	 * )
 	 */
-	private $price
+	private $price;
 	
 	/**
-	 * @ORM\ManytoOne(targetEntity="OC\PlatformBundle\Entity\TicketOrder", inversedBy="tickets")
+	 * @ORM\ManytoOne(targetEntity="OC\BillingBundle\Entity\TicketOrder", inversedBy="tickets")
 	 * @ORM\joincolumn(nullable=false)
 	 * @Assert\Valid()
 	 */

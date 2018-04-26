@@ -1,0 +1,4 @@
+oc_billing_home:
+	path:    /
+	defaults:
+		_controller: OCBillingBundle:Billing:index

@@ -3,14 +3,21 @@
 namespace OC\PlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 class AdvertController extends Controller
 {
-    public function indexAction()
-    {
-        $content = $this->get('templating')->render('OCPlatformBundle:Advert:index.html.twig');
-		
-		return new Response($content);
-    }
+	public function indexAction()
+	{
+		return $this->render('OCPlatformBundle:Advert:index.html.twig');
+	}
+	
+	public function legalAction()
+	{
+		return $this->render('OCPlatformBundle:Advert:legal.html.twig');
+	}
+	
+	public function termsAction()
+	{
+		return $this->render('OCPlatformBundle:Advert:terms.html.twig');
+	}
 }

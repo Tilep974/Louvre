@@ -1,14 +1,16 @@
 <?php
 
-namespace OTS\BillingBundle\Entity;
+namespace OC\BillingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TicketOrder
  *
  * @ORM\Table(name="ticket_order")
- * @ORM\Entity(repositoryClass="OTS\BillingBundle\Repository\TicketOrderRepository")
+ * @ORM\Entity(repositoryClass="OC\BillingBundle\Repository\TicketOrderRepository")
  */
 class TicketOrder
 {
@@ -24,7 +26,8 @@ class TicketOrder
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime")
+     * @ORM\Column(name="date", type="date")
+	 * @Assert\Date(message="Order date must be either a valid DateTime object or a valid date string.")
      */
     private $date;
 
@@ -46,15 +49,15 @@ class TicketOrder
      *
      * @ORM\Column(name="nb_tickets", type="smallint")
 	 * @Assert\GreaterThanOrEqual(value=0, message="Number of tickets must be equal to or over 0.")
-	 * @Assert\GreaterThanOrEqual(
+	 * @Assert\GreaterThan(
 	 *	value=0,
-	 *	message="Number of tickets must be equal to or over 0."
+	 *	message="Number of tickets must be greater than 0."
 	 *)
      */
     private $nbTickets;
 
     /**
-     * @ORM\OneToMany(targetEntity="OTS\BillingBundle\Entity\Ticket", mappedBy="order")
+     * @ORM\OneToMany(targetEntity="OC\BillingBundle\Entity\Ticket", mappedBy="order")
 	 * @Assert\Valid()
      */
     private $tickets;
