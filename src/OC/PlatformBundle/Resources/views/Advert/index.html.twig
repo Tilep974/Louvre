@@ -1,64 +1,144 @@
 {% extends "OCPlatformBundle::layout.html.twig" %}
+{% set homepage = true %}
 
 {% block title %}
-	Book online - {{ parent() }}
+  	Home - {{ parent() }}
 {% endblock %}
 
-{% block stylesheets %}
-	{{ parent() }}
-	{% stylesheets filter='cssrewrite'
-		'bundles/ocplatform/css/billing.css' %}
-		<link rel="stylesheets" href="{{ asset_url }}" type="text/css">
-	{% endstylesheets %}
-{% endblock %}
+
 
 {% block body %}
 	{% for message in app.session.flashbag.get('info') %}
-	<div class="aler alert-info">{{ message }}</div>
-	{% endfor %}
-	
-	<h1 id="title">Book online</h1>
-	<hr />
-	
-	<div class="row">
-		<ul class="nav nav-pills nav-justified">
-			<li class="active">
-				<a href="#order" data-toggle="tab">
-					1. Order
-				</a>
-			</li>
-			<li>
-				<a href="#informations" data-toggle="tab">
-					2. Informations
-				</a>
-			</li>
-			<li>
-				<a href="#payement" data-toggle="tab">
-					3. Payment
-				</a>
-			</li>
-		</ul>
-		
-		<div class="tab-content">
-			<div class="tab-pane fade active in" id="order">
-				<h2>Order</h2>
-				<hr />
-				
-				{{ form(OrderForm) }}
-			</div>
-			<div class="tab-pane fade" id="informations">
-				<h2>Informations</h2>
-				<hr />
-			</div>
-		</div>
-	</div>
+        <div class="alert alert-info">{{ message }}</div>
+    {% endfor %}
+
+    <div class="row" id="cover">
+        <div class="col-xs-12" id="cover-img">
+        </div>
+
+        <div class="title-block">
+            <h1>Online Ticketing Service, Musée du Louvre</h1>
+
+            <h2>Current exhibition: Vermeer and the masters of genre painting</h2>
+        </div>
+
+        <a class="btn btn-default btn-lg" id="booking-btn" href="{{ path('oc_platform_home') }}">
+            Book a ticket online
+        </a>
+
+        <a href="#opening-time" title="Read more about our offers" class="scrollspy-link">
+            Read more
+        </a>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-xs-12" id="opening-time">
+            <h2>Opening time</h2>
+
+            <p class="left-centered">
+                Open every day except tuesday<br />
+                From 9am to 6pm<br />
+                Open until 9.45pm on wednesday and friday
+                <br /><br />
+                
+                Closed on the 1st of May, the 1st of November and the 25th of december
+            </p>
+        </div>
+    </div>
+
+    <div class="row text-center" id="prices">
+        <div class="match-my-cols">
+            <div class="col-xs-12 col-sm-6 price-block">
+                <div class="price-box">
+                    <h2>Normal rate</h2>
+
+                    <p>
+                        12 years old and older
+                    </p>
+
+                    <h3>16€</h3>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 price-block">
+                <div class="price-box">
+                    <h2>Discounted rate</h2>
+
+                    <p>
+                        Student, french military, museum employee or Ministry of Culture employee
+                    </p>
+
+                    <h3>10€</h3>
+                </div>
+            </div>
+        </div>
+        <div class="match-my-cols">
+            <div class="col-xs-12 col-sm-6 price-block">
+                <div class="price-box">
+                    <h2>Child rate</h2>
+
+                    <p>
+                        From 4 to 12 years old<br />
+                        Free for children younger than 4
+                    </p>
+
+                <h3>8€</h3>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 price-block">
+                <div class="price-box">
+                    <h2>Senior rate</h2>
+
+                    <p>
+                        60 years old and older
+                    </p>
+
+                    <h3>12€</h3>
+                </div>
+            </div>
+        </div>
+
+       <div class="col-xs-12">
+           <a class="btn btn-default btn-lg" id="booking-btn" href="{{ path('oc_platform_home') }}">
+                Book a ticket online
+            </a>
+        </div>
+    </div>
+
+    <div class="row text-center" id="contact">
+        <h2>Contact</h2>
+
+        <div class="vertical-align">
+            <div class="col-xs-12 col-sm-6">
+                <address class="left-centered">
+                    Musée du Louvre, Pavillon Mollien,<br />
+                    75058 PARIS CEDEX 01<br />
+                    FRANCE
+                </address>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <p class="hr-border">
+                    "+33 (0)1 40 20 53 17<br />
+                    info@louvre.fr"
+                </p>
+                
+                <p>
+                    <a href="https://www.facebook.com" title="Facebook">
+                        <i class="fa fa-facebook-square fa-3x"></i>
+                    </a>
+                    <a href="https://plus.google.com" title="Google+">
+                        <i class="fa fa-google-plus-square fa-3x"></i>
+                    </a>
+                    <a href="https://www.twitter.com" title="Twitter">
+                        <i class="fa fa-twitter-square fa-3x"></i>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
-	{{ ('parent') }}
-	<script>
-		($function() {
-			$( "#orderForm_date").datepicker();
-		});
-	</script>
+    {{ parent() }}
+        'bundles/otscore/js/home.js'
+        <script type="text/javascript"></script>
 {% endblock %}

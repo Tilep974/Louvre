@@ -5,20 +5,25 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	  	<title>{% block title %}Buy tickets - Musée du Louvre{% endblock %}</title>
+		
+		  		<link rel="stylesheet" href="{{ asset('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')" type="text/css">
+		  		<link rel="stylesheet" href="{{ asset('/code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css')" type="text/css">
+		  		<link rel="stylesheet" href="{{ asset('../vendor/components/font-awesome/css/font-awesome.min.css')" type="text/css">
+		  		<link rel="stylesheet" href="{{ asset('bundles/ocplatform/css/main.css') }}" type="text/css">
+		  		<link rel="stylesheet" href="{{ asset('bundles/ocplatform/css/header.css') }}" type="text/css">
+		  		<link rel="stylesheet" href="{{ asset('bundles/ocplatform/css/footer.css') }}" type="text/css">
 
-	  	{% block stylesheets %}
-	    	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-	  	{% endblock %}
 	</head>
 
-	<body>
+	<body{% if homepage is defined %} data-spy="scroll" data-target=".navbar" data-offset="300"{% endif %}>
 	  	<div class="container-fluid">
-		    <header id="navbar navbar-default navbar-fixed-top">
+		    <header class="navbar navbar-default navbar-fixed-top" id="header">
 		      	<div class="container">
 		      		<div class="navbar-header">
                     	<a href="{{ path('oc_platform_home') }}" title="Back to the homepage" class="navbar-brand">
-                        	<img src="../louvre.png" alt="Logo - Musée du Louvre" style="height: 30px" />
-                    	</a>
+    							<img src="Images/Musee_du_Louvre_1992_logo" alt="Logo - Musée du Louvre" />
+
+						</a>
 
                     	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         	<span class="icon-bar"></span>
@@ -32,28 +37,27 @@
 	                        <!-- actual menu list -->
 	                        <ul class="nav navbar-nav navbar-right">
 	                            <li>
-	                                <a href="{{ path('oc_platform_home') }}" title="Homepage">
+	                                <a href="{% if homepage is defined %}cover{% else %}{{ path('ots_core_home') }}{% endif %}" title="Homepage" class="scrollspy-link">
 	                                    Home
 	                                </a>
 	                            </li>
 	                            <li>
-	                                <a href="#" title="Opening time">
+	                                <a href="{% if homepage is not defined %}{{ path('ots_core_home') }}{% endif %}opening-time" title="Opening time" class="scrollspy-link">
 	                                    Opening time
 	                                </a>
 	                            </li>
 	                            <li>
-	                                <a href="#" title="Prices">
+	                                <a href="{% if homepage is not defined %}{{ path('ots_core_home') }}{% endif %}prices" title="Prices" class="scrollspy-link">
 	                                    Prices
 	                                </a>
 	                            </li>
 	                            <li>
-	                                <a href="#" title="Contact">
+	                                <a href="{% if homepage is not defined %}{{ path('ots_core_home') }}{% endif %}contact" title="Contact" class="scrollspy-link">
 	                                    Contact
 	                                </a>
 	                            </li>
 	                            <li>
-	                            <li>
-	                                <a href="#" title="Book online">
+	                                <a href="{{ path('oc_platform_home') }}" title="Book online">
 	                                    Book online
 	                                </a>
 	                            </li>
@@ -63,29 +67,32 @@
 		      	</div>
 		    </header>
 
-		    {% block body %}
-		    {% endblock %}
+		    <div id="wrapper">
+			    {% block body %}
+			    {% endblock %}
+		    </div>
 
-		    <footer class="row">
+		    <footer class="row" id="footer">
 		      	<div class="col-xs-12 col-sm-4">
-		      		<a href="#" title="Legal notice">
-		      			Legal notice
+		      		<a href="{{ path('oc_platform_legal') }}" title="Legal information and terms of use">
+		      			Legal information
 		      		</a>
 		      	</div>
 		      	<div class="col-xs-12 col-sm-4">
 		      		&copy; Musée du Louvre - All rights reserved
 		      	</div>
 		      	<div class="col-xs-12 col-sm-4">
-		      		<a href="#" title="Terms &amp; Conditions">
-		      			T&Cs
+		      		<a href="{{ path('oc_platform_terms') }}" title="Terms Conditions">
+		      			Terms &amp; Conditions
 		      		</a>
 		      	</div>
 		    </footer>
 	  	</div>
 
-	  	{% block javascripts %}
-	    	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	    	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	  	{% endblock %}
+
+		  		'//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'
+		  		'//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js' %}
+
+
 	</body>
 </html>

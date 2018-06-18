@@ -6,8 +6,7 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	{% stylesheets filter='csswrite'
-		'bundles/ocplatform/css/billing.css' %}
+	{% stylesheets 'bundles/ocplatform/css/billing.css' filter='csswrite' %}
 		<link rel="stylesheet" href="{{ asset_url }}" type="text/css">
 	{% stylesheets %}
 {% endblock %}

@@ -2,3 +2,13 @@ oc_platform_home:
     path:     /
     defaults: 
         _controller: OCPlatformBundle:Advert:index
+        
+oc_platform_legal:
+    path: /legal
+    defaults:
+        _controller: OCPlatformBundle:Advert:legal
+
+oc_platform_terms:
+    path: /terms
+    defaults:
+        _controller: OCPlatformBundle:Advert:terms
