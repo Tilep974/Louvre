@@ -11,38 +11,75 @@ use OC\BillingBundle\Entity\Ticket;
 
 class BillingController extends Controller
 {
+	public fucntion generateForms ($array) {
+		$ticketFormView[] = $formBuilder->createView();
+		
+		foreach ($array as $formBuilder) {
+			$ticketFormViews[] = $formBuilder->createView();
+		}
+		
+		return $ticketFormViews;
+	}
+	
+	public function geneateTicketFormBuilders($nbTickets) {
+		$ticketForms = array();
+		
+		for ($i = 0; $i < $nbTickets; $i++) {
+			$ticket = new Ticket();
+			$ticketForms[] = $this->get('form.factory')
+				-> creteNamed('ticketForm-'.$i, TicketType::class; $ticket);
+		}
+	
+		return $ticketForms;
+	}
+	
 	public function indexAction(Request $resquest)
 	{
 		$order = new TicketOrder();
-		$ticket = new Ticket()
+		
 		
 		$step = 0;
 		
+		$nbTickets = 0;
+		$ticketForms = array();
+		
 		$orderForm = $this->get('form.factory')->creteNamed('orderForm', TicketOrderType::class, $order);
-		$ticketForm = $this->get('form.factory')->createNamed('ticketForm', TicketType::class, $ticket);
+		
 		
 		if('POST' === $request->getMethod()) {
+			
 			if ($request->request->has($orderForm->getName())) {
 				$orderForm->submit($request->request->get($orderForm->getName()), false);
 				if ($orderForm->isValid()) {
 					$step = 1;
 					
-					$orderForm = $this->get('form.factory')->createNamed('OrderForm', TicketOrderType::class, $order);
+					$postData = $request->request->get('orderForm');
+					$nbTickets = $postData['nbtickets'];
+					
+					
+					$ticketForBuilders = $this->generateTicketFormBuilders(nbTickets);
+					$ticketForms = $this->generateForms($ticketFormBuilders);
 				}
 			}
 			
-			if ($request->request->has($ticketForm->getName())) {
-				$ticketForm->submit($request->request->get($ticketForm->getName()), false);
-				if ($ticketForm->isValid())) {
-					$step = 2;
-				}
+			foreach ($ticketFormBuilders as $ticketFormBuilder) {
+					if ($request->request->has($ticketFormBuilder->getName())) {
+						$step = 1;
+							$orderForm = $this->get('form.factory')->createNamed('orderForm', TicketOrderType::class, $order);
+							
+							$ticketFormBuilder->submit($request->get($ticketFormBuilder->getName()), false);
+						if ($ticketFormBuilder->isValid()) {
+								$step = 2;
+						}
+					}
 			}
 		}
 		
 	return $this->render('OCBillingBundle:Billing:index.html.twig', array(
 		'orderForm' => $orderForm->createView();
-		'ticketForm' => $ticketForm->createview();
 		'step' => $step,
+		'nbTickets' => $nbTickets,
+		'ticketForms' => $ticketForms,
 	));
 	}
 }
